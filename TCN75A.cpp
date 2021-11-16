@@ -1,0 +1,161 @@
+#include "TCN75A.h"
+
+TCN75A::TCN75A(uint8_t adr){
+  _adr = adr;
+}
+
+void TCN75A::begin(TwoWire &wire = Wire){
+  _wire = &wire;
+  _wire->begin();
+}
+
+// read temperature
+float TCN75A::readTemperature(){
+  float data[1];
+  _wire->beginTransmission(_adr);
+  _wire->write(0x00);
+  _wire->endTransmission(false);
+  _wire->requestFrom(_adr,uint8_t(2)); //need 2 btyes
+  //force data to fit with int8_t then convert it to float
+  data[0] = float(int8_t(_wire->read()));
+  //now with problem
+  data[1] = fractalCalc(String(uint8_t(_wire->read()),BIN));
+  _wire->endTransmission();
+  return data[0] + data[1];
+}
+
+float TCN75A::fractalCalc(String bin){
+  // shitty zero appender
+  // because i hate string manipulation
+  String clone;
+  uint8_t a = bin.length();
+  for(uint8_t i = bin.length(); i < 8; i++){
+    clone = bin;
+    for(uint8_t i = 0; i < a; i++){
+      bin[i+1] = clone[i];
+    }
+    bin[0] = '0';
+    a++;
+  }
+  // thanks god for g4g
+  float decimal = 0.0;
+  for(uint8_t i = 0; i < bin.length() - 1; ++i){
+    decimal += (bin[i] - '0')/(2.0*(i+1));
+  }
+  return decimal;
+}
+
+// set temp
+// dont forget to fool-proof it too
+
+void TCN75A::setRangeTemp(float val_down, float val_up){
+  setHystTemp(val_down); setLimitTemp(val_up);
+}
+
+void TCN75A::setHystTemp(float val){
+  setTemp(0x02,val);
+}
+
+void TCN75A::setLimitTemp(float val){
+  setTemp(0x03,val);
+}
+
+void TCN75A::setTemp(uint8_t p, float value){
+  _wire->beginTransmission(_adr);
+  _wire->write(p); //choose the config
+  if(value - floor(value) < 0.5){ 
+    //high school tier else-if statement
+    _wire->write(int8_t(floor(value)));
+    _wire->write(0x00);
+  } else if (value - floor(value) == 0.5){
+    _wire->write(int8_t(floor(value)));
+    _wire->write(0x80);
+  } else if (value - floor(value) > 0.5) {
+    _wire->write(int8_t(ceil(value)));
+    _wire->write(0x00);
+  }
+  _wire->endTransmission();
+}
+
+//get temp
+
+float TCN75A::getLimitTemp(){
+  return getTemp(0x03);
+}
+
+float TCN75A::getHystTemp(){
+  return getTemp(0x02);
+}
+
+float TCN75A::getTemp(uint8_t p){
+  int8_t data[1];
+  _wire->beginTransmission(_adr);
+  _wire->write(p); // THYST pointer
+  _wire->endTransmission(false);
+  _wire->requestFrom(_adr,uint8_t(2)); //need two bytes
+  data[0] = _wire->read(); //get first byte
+  data[1] = _wire->read() >> 7; //get second byte
+  _wire->endTransmission();
+  return float(data[0]) + (data[1] == 0x01 ? 0.5 : 0.0);
+}
+
+// configuration.. *sigh*
+uint8_t TCN75A::readConfig(){
+  uint8_t data;
+  _wire->beginTransmission(_adr);
+  _wire->write(0x01); // CONFIG pointer
+  _wire->endTransmission(false);
+  _wire->requestFrom(_adr,uint8_t(1)); //SINGLE BYTE
+  data = _wire->read();
+  _wire->endTransmission();
+  return data;
+}
+
+void TCN75A::writeConfig(uint8_t data){
+  _wire->beginTransmission(_adr);
+  _wire->write(0x01);
+  _wire->write(data);
+  _wire->endTransmission();
+}
+
+void TCN75A::setOneShot(bool sw){
+  uint8_t rbyte = readConfig();
+  bitWrite(rbyte, 7, sw);
+  writeConfig(rbyte);
+}
+
+void TCN75A::setResolution(uint8_t val){
+  uint8_t rbyte = readConfig();
+  if(val > 0x03)
+    val = 0x03;
+  bitWrite(rbyte, 5, val % 2); //bit-5
+  bitWrite(rbyte, 6, val > 1 ? 1 : 0); //bit-6, this is stupid
+  writeConfig(rbyte);
+}
+
+void TCN75A::setFaultQueue(uint8_t val){
+  uint8_t rbyte = readConfig();
+  if(val > 0x03)
+    val = 0x03;
+  bitWrite(rbyte, 3, val % 2); //bit-3
+  bitWrite(rbyte, 4, val > 1 ? 1 : 0); //bit-4
+  writeConfig(rbyte);
+}
+
+void TCN75A::setAlertPolarity(bool sw){
+  uint8_t rbyte = readConfig();
+  bitWrite(rbyte, 2, sw);
+  writeConfig(rbyte);
+}
+
+void TCN75A::setAlertMode(bool sw){
+  uint8_t rbyte = readConfig();
+  bitWrite(rbyte, 1, sw);
+  writeConfig(rbyte);
+}
+
+void TCN75A::setShutdown(bool sw){
+  uint8_t rbyte = readConfig();
+  bitWrite(rbyte, 0, sw);
+  writeConfig(rbyte);
+}

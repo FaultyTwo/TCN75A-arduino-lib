@@ -1,0 +1,15 @@
+TCN75A	KEYWORD1
+
+begin	KEYWORD2
+readTemperature	KEYWORD2
+setHystTemp	KEYWORD2
+setLimitTemp	KEYWORD2
+setRangeTemp	KEYWORD2
+getLimitTemp	KEYWORD2
+getHystTemp	KEYWORD2
+setOneShot	KEYWORD2
+setResolution	KEYWORD2
+setFaultQueue	KEYWORD2
+setAlertPolarity	KEYWORD2
+setAlertMode	KEYWORD2
+setShutdown	KEYWORD2
