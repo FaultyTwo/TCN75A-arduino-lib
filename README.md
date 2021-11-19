@@ -10,12 +10,12 @@ TCN75A is a thermal sensor with various configurations; thru following:
 
 ### ALERT Functionality
 ALERT function works by using two configurable variables; **'limit-set temperature'** and **'hysteresis temperature'.**<br>
-ALERT output is active when ambient temperature is greater than limit-set temperature, until ambient temperature is lower than than hysteresis temperature.
+ALERT output is active when ambient temperature is greater than limit-set temperature until ambient temperature is lower than than hysteresis temperature.
 
 ### Alert Modes
-- Comparator Mode
+- Comparator Mode<br>
 As what the mode said (default: ACTIVE-LOW).
-- Interrupt Mode
+- Interrupt Mode<br>
 Send out an interrupt signal (default: ACTIVE-LOW).
 
 ## How To Use The Library
