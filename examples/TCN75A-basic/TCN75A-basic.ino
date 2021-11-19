@@ -26,10 +26,11 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  float temp = dvc.readTemperature(); //read the sensor
   Serial.print("Current Celsius is: ");
-  Serial.println(dvc.readTemperature());
+  Serial.println(temp);
   Serial.print("Current Kelvin is: ");
-  Serial.println(dvc.readTemperature() + 273.15);
+  Serial.println(temp + 273.15);
   Serial.println();
   delay(2000);
 }

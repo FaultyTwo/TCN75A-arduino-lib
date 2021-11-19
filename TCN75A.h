@@ -4,7 +4,17 @@
 #include "Arduino.h"
 #include "Wire.h"
 
-//im starting to regret making this library
+// LITERALS
+#define ONESHOT 0x05
+#define ADC_RESO 0x04
+#define F_QUEUE 0x03
+#define ALERT_POL 0x02
+#define COMP_INT 0x01
+#define SHUTDOWN 0x00
+
+//POLARITY
+#define COMP_MODE false
+#define INT_MODE true
 
 class TCN75A{
   public:
@@ -33,6 +43,16 @@ class TCN75A{
   void setAlertMode(bool sw); // 1 = interrupt, 0 = comparator (def)
   void setShutdown(bool sw); // 1 = enable, 0 = disable (def)
   //remember. use bitWrite() to change a bit in the read byte
+  int8_t checkConfig(uint8_t op);
+  /* OPTIONS:
+   * 0x00 = SHUTDOWN
+   * 0x01 = COMP/INT
+   * 0x02 = ALERT POLARITY
+   * 0x03 = FAULT QUEUE
+   * 0x04 = ADC RESOLUTION
+   * 0x05 = ONESHOT
+   */
+  
   private:
   uint8_t readConfig();
   void writeConfig(uint8_t data);
@@ -44,7 +64,3 @@ class TCN75A{
 };
 
 #endif
-
-/* 
- * 
- */

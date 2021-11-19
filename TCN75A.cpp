@@ -159,3 +159,17 @@ void TCN75A::setShutdown(bool sw){
   bitWrite(rbyte, 0, sw);
   writeConfig(rbyte);
 }
+
+int8_t TCN75A::checkConfig(uint8_t op){
+  if(op >= 0x06)
+    return -1; //invalid option
+  uint8_t rbyte = readConfig();
+  switch(op){
+    case 0x03:
+      return bitRead(rbyte,0x03) + (bitRead(rbyte,0x04) << 1);
+    case 0x04:
+      return bitRead(rbyte,0x05) + (bitRead(rbyte,0x06) << 1);
+    default:
+      return bitRead(rbyte, op);
+  }
+}
