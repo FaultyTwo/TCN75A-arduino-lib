@@ -67,18 +67,17 @@ void setOneShot(bool sw);
 ```
 Configure One-Shot Mode.<br>*(Default: False)*
 
-*^Perform a single measurement and returns to shutdown mode*
+**^Perform a single measurement and returns to shutdown mode**
 
 ```C
 void setShutdown(bool sw);
 ```
 Configure Shutdown Mode.<br>*(Default: False)*
 
-*^Oneshot: Disable the power-consuming activities, while leaving serial interfact on.*
+**^Oneshot: Disable the power-consuming activities, while leaving serial interfact on.**
 
-|--------------------------------------|
-| Oneshot and Shutdown Mode Description|
-|------|---------------|---------|
+##### Oneshot and Shutdown Mode Description
+
 | Oneshot | Shutdown | Operation |
 |------|---------------|---------|
 | logic 0 | logic 0 | Continuous Conversion |
@@ -86,7 +85,7 @@ Configure Shutdown Mode.<br>*(Default: False)*
 | logic 1 | logic 0 | Continuous Conversion (Oneshot is ignored) |
 | logic 1 | logic 1 | One-shot |
 
-*^The shutdown command <01> needs to be programmed before oneshot command <11>.*
+**^The shutdown command <01> needs to be programmed before oneshot command <11>.**
 
 
 ```C
@@ -94,7 +93,6 @@ void setResolution(uint8_t val);
 ```
 Configure ADC conversion resolution.<br>*(Default: 9-Bit)*
 
-|------|---------------|
 | val | ADC Resolution |
 |------|---------------|
 | 0x00 | 9-bit  |
@@ -109,7 +107,6 @@ void setResolution(uint8_t val);
 ```
 Configure Fault Queue.<br>*(Default: 1)*
 
-|------|---------------|
 | Value | Fault Queue |
 |------|---------------|
 | 0x00 | 1 |
@@ -117,7 +114,7 @@ Configure Fault Queue.<br>*(Default: 1)*
 | 0x02 | 4 |
 | 0x03 | 6 |
 
-**^Fault Queue: A way to check how many times does ambient temperature remain above limit-set temperature takes for ALERT to deassert or assert.**
+**^Fault Queue: A way to check how many times does ambient temperature remain above limit-set temperature takes for ALERT to deassert or assert.**<br>
 **^Beyond than 0x03 will set output back to 0x03**
 
 ```C
@@ -125,7 +122,6 @@ void setAlertPolarity(bool sw);
 ```
 Configure Alert Polarity.<br>*(Default: Active-Low)*
 
-|------|---------------|
 | 'sw' | Mode |
 |------|---------------|
 | logic 0 | Active-Low |
@@ -136,7 +132,6 @@ void setAlertMode(bool sw);
 ```
 Configure Alert Mode. Accept literals.<br>*(Default: Comparator)*
 
-|------|----------|-----------|
 | 'sw' | Literals | Mode |
 |------|----------|-----------|
 | logic 0 | COMP_MODE | Comparator Mode |
@@ -147,9 +142,8 @@ int8_t checkConfig(uint8_t op);
 ```
 Return the value of a specific feature. Accept literals.
 
-|------|--------|----------|
 | 'op' | Literals | Features |
-|------|---------------|
+|------|----------|-----------|
 | 0x00 | (SHUTDOWN) | Shutdown |
 | 0x01 | (COMP_INT)| Alert Mode |
 | 0x02 | (ALERT_POL) | Alert Polarity |
