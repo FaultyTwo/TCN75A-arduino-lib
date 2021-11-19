@@ -76,7 +76,7 @@ Configure Shutdown Mode.<br>*(Default: False)*
 
 **^Oneshot: Disable the power-consuming activities, while leaving serial interfact on.**
 
-##### Oneshot and Shutdown Mode Description
+#### Oneshot and Shutdown Mode Description
 
 | Oneshot | Shutdown | Operation |
 |------|---------------|---------|
