@@ -144,11 +144,11 @@ Return the value of a specific feature. Accept literals.
 
 | 'op' | Literals | Features |
 |------|----------|-----------|
-| 0x00 | (SHUTDOWN) | Shutdown |
-| 0x01 | (COMP_INT)| Alert Mode |
-| 0x02 | (ALERT_POL) | Alert Polarity |
-| 0x03 | (F_QUEUE) | Fault Queue |
-| 0x04 | (ADC_RESO) | ADC Resolution |
-| 0x05 | (ONESHOT) | Oneshot |
+| 0x00 | SHUTDOWN | Shutdown |
+| 0x01 | COMP_INT| Alert Mode |
+| 0x02 | ALERT_POL | Alert Polarity |
+| 0x03 | F_QUEUE | Fault Queue |
+| 0x04 | ADC_RESO | ADC Resolution |
+| 0x05 | ONESHOT | Oneshot |
 
 **^Beyond than 0x05 will return as -1**
