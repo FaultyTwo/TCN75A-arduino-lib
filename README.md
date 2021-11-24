@@ -74,7 +74,7 @@ void setShutdown(bool sw);
 ```
 Configure Shutdown Mode.<br>*(Default: False)*
 
-**^Oneshot: Disable the power-consuming activities, while leaving serial interfact on.**
+**^Oneshot: Disable the power-consuming activities, while leaving serial interface on.**
 
 #### Oneshot and Shutdown Mode Description
 
@@ -114,7 +114,7 @@ Configure Fault Queue.<br>*(Default: 1)*
 | 0x02 | 4 |
 | 0x03 | 6 |
 
-**^Fault Queue: A way to check how many times does ambient temperature remain above limit-set temperature takes for ALERT to deassert or assert.**<br>
+**^Fault Queue: A way to check how many times does ambient temperature remain above limit-set temperature take for ALERT to deassert or assert.**<br>
 **^Beyond than 0x03 will set output back to 0x03**
 
 ```C
