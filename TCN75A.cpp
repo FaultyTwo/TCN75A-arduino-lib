@@ -19,30 +19,9 @@ float TCN75A::readTemperature(){
   //force data to fit with int8_t then convert it to float
   data[0] = float(int8_t(_wire->read()));
   //now with problem
-  data[1] = fractalCalc(String(uint8_t(_wire->read()),BIN));
+  data[1] = float((uint8_t(_wire->read() >> 4)) / 16.0); //IS THAT EASY ??? REALLY!?
   _wire->endTransmission();
   return data[0] + data[1];
-}
-
-float TCN75A::fractalCalc(String bin){
-  // shitty zero appender
-  // because i hate string manipulation
-  String clone;
-  uint8_t a = bin.length();
-  for(uint8_t i = bin.length(); i < 8; i++){
-    clone = bin;
-    for(uint8_t i = 0; i < a; i++){
-      bin[i+1] = clone[i];
-    }
-    bin[0] = '0';
-    a++;
-  }
-  // thanks god for g4g
-  float decimal = 0.0;
-  for(uint8_t i = 0; i < bin.length() - 1; ++i){
-    decimal += (bin[i] - '0')/(2.0*(i+1));
-  }
-  return decimal;
 }
 
 // set temp

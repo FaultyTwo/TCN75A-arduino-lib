@@ -4,6 +4,8 @@
 #include "Arduino.h"
 #include "Wire.h"
 
+//im starting to regret making this library
+
 // LITERALS
 #define ONESHOT 0x05
 #define ADC_RESO 0x04
@@ -58,7 +60,6 @@ class TCN75A{
   void writeConfig(uint8_t data);
   float getTemp(uint8_t p); //reducing nuisance
   void setTemp(uint8_t p, float value); //same here
-  float fractalCalc(String bin);
   TwoWire *_wire;
   uint8_t _adr;
 };
