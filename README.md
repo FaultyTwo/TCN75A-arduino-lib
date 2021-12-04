@@ -49,10 +49,10 @@ void setRangeTemp(float val_down, float val_up);
 ```
 As following:
 - Set Hysteresis Temperature, should be lower than Limit-Set Temperature.<br>*(Default: 80.0)*
-- Set Limit-Set Temperature (should be higher than Hysteresis Temperature).<br>*(Default: 75.0)*
+- Set Limit-Set Temperature, should be higher than Hysteresis Temperature.<br>*(Default: 75.0)*
 - Set both of them ('val_down' for hysteresis, 'val_up' for limit-set).
 
-**^Decimal values are rounded up and down accordingly to normal math. Unless the value is absolute '.5'**
+**^Decimal values are rounded up or down normally. Unless the value is absolute '.5'**
 
 ```C
 float getHystTemp();
@@ -67,7 +67,7 @@ void setOneShot(bool sw);
 ```
 Configure One-Shot Mode.<br>*(Default: False)*
 
-**^Perform a single measurement and returns to shutdown mode**
+**^Perform a single measurement, then returns to shutdown mode**
 
 ```C
 void setShutdown(bool sw);
@@ -130,7 +130,7 @@ Configure Alert Polarity.<br>*(Default: Active-Low)*
 ```C
 void setAlertMode(bool sw);
 ```
-Configure Alert Mode. Accept literals.<br>*(Default: Comparator)*
+Configure Alert Mode. Accept the following literals.<br>*(Default: Comparator)*
 
 | 'sw' | Literals | Mode |
 |------|----------|-----------|
@@ -140,7 +140,7 @@ Configure Alert Mode. Accept literals.<br>*(Default: Comparator)*
 ```C
 int8_t checkConfig(uint8_t op);
 ```
-Return the value of a specific feature. Accept literals.
+Return the value of a specific feature. Accept the following literals.
 
 | 'op' | Literals | Features |
 |------|----------|-----------|
