@@ -53,6 +53,7 @@ As following:
 - Set both of them ('val_down' for hysteresis, 'val_up' for limit-set).
 
 **^Decimal values are rounded up or down normally. Unless the value is absolute '.5'**
+**^Input values should be in the range of -40.0 to +125.0**
 
 ```C
 float getHystTemp();

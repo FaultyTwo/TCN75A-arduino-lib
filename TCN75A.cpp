@@ -26,6 +26,7 @@ float TCN75A::readTemperature(){
 
 // set temp
 // dont forget to fool-proof it too
+// min: -40; max: 125
 
 void TCN75A::setRangeTemp(float val_down, float val_up){
   setHystTemp(val_down); setLimitTemp(val_up);
@@ -40,6 +41,11 @@ void TCN75A::setLimitTemp(float val){
 }
 
 void TCN75A::setTemp(uint8_t p, float value){
+  if(value < -40.0)
+	value = -40.0;
+  if(value > 125.0)
+	value = 125.0;
+
   _wire->beginTransmission(_adr);
   _wire->write(p); //choose the config
   if(value - floor(value) < 0.5){ 
