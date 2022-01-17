@@ -4,7 +4,7 @@ TCN75A::TCN75A(uint8_t adr){
   _adr = adr;
 }
 
-void TCN75A::begin(TwoWire &wire = Wire){
+void TCN75A::begin(TwoWire &wire){
   _wire = &wire;
   _wire->begin();
 }
