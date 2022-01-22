@@ -19,7 +19,7 @@ As what the mode said (default: ACTIVE-LOW).
 Send out an interrupt signal (default: ACTIVE-LOW).
 
 ## How To Use The Library
-Include the library, then simply create a constructor like this:
+Include the library, then simply create an object like this:
 ```C
 #include <TCN75A.h>
 TCN75A tcn(*i2c address*);
