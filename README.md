@@ -33,9 +33,11 @@ void setup(){
 
 ## Methods
 ```C
-void begin();
+void begin(TwoWire &wirePort = Wire);
 ```
 Initiate the TCN75A library.
+
+Can be configured to use other I2C ports from a 'TwoWire' object. For default I2C port, just leave the parameter blank.
 
 ```C
 float readTemperature();
