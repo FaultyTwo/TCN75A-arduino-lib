@@ -30,6 +30,20 @@ void setup(){
   tcn.begin();
   ...
 ```
+To use this library with other I2C ports, you can simply create a TwoWire object then parse it into the 'begin' function:
+```C
+// ESP32
+#define I2C_SDA 33
+#define I2C_SCL 32
+
+TwoWire esp = TwoWire(0);
+TCN75A tcn(*i2c address*);
+
+void setup(){
+  esp.begin(I2C_SDA, I2C_SCL, 1000000);
+  tcn.begin(&esp);
+}
+```
 
 ## Methods
 ```C
