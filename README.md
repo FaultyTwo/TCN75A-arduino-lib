@@ -3,18 +3,15 @@ An Arduino Library for TCN75A, Temperature Sensor.
 
 For more technical details, please refer to the [datasheet.](http://ww1.microchip.com/downloads/en/devicedoc/21935d.pdf)
 
-# TCN75A Overview
-TCN75A is a thermal sensor with various configurations; thru following:
-
 ## ALERT Output
 
 ### ALERT Functionality
 ALERT function works by using two configurable variables; **'limit-set temperature'** and **'hysteresis temperature'.**<br>
-ALERT output is active when ambient temperature is greater than limit-set temperature until ambient temperature is lower than than hysteresis temperature.
+ALERT output is active when ambient temperature is greater than limit-set temperature, then become inactive when ambient temperature is lower than than hysteresis temperature.
 
 ### Alert Modes
 - Comparator Mode<br>
-As what the mode said (default: ACTIVE-LOW).
+Send out an comparator signal (default: ACTIVE-LOW).
 - Interrupt Mode<br>
 Send out an interrupt signal (default: ACTIVE-LOW).
 
