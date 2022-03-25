@@ -3,6 +3,11 @@ An Arduino Library for TCN75A, Temperature Sensor.
 
 For more technical details, please refer to the [datasheet.](http://ww1.microchip.com/downloads/en/devicedoc/21935d.pdf)
 
+## Pinout
+![TCN75A Pinout](pic/tcn75a.png)
+
+## TCN75A Overview
+
 ## ALERT Output
 
 ### ALERT Functionality
@@ -144,7 +149,7 @@ Configure Alert Polarity.<br>*(Default: Active-Low)*
 ```C
 void setAlertMode(bool sw);
 ```
-Configure Alert Mode. Accept the following literals.<br>*(Default: Comparator)*
+Configure Alert Mode. Accept the following literals.<br>*(Default: Comparator Mode)*
 
 | 'sw' | Literals | Mode |
 |------|----------|-----------|
