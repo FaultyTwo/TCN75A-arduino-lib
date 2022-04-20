@@ -122,7 +122,7 @@ Configure ADC conversion resolution.<br>*(Default: 9-Bit)*
 **^Beyond than 0x03 will set output back to 0x03**
 
 ```C
-void setResolution(uint8_t val);
+void setFaultQueue(uint8_t val);
 ```
 Configure Fault Queue.<br>*(Default: 1)*
 
