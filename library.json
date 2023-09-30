@@ -1,0 +1,22 @@
+{
+  "name": "TCN75A-arduino-lib",
+  "keywords": "temperature, I2C, alert",
+  "description": "An Arduino library for TCN75A, Temperature Sensor",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/FaultyTwo/TCN75A-arduino-lib"
+  },
+  "authors": 
+  [
+    {
+      "name": "Chawin 'Faultytwo' Treesugol",
+      "email": "-",
+      "url": "https://github.com/FaultyTwo",
+      "maintainer": true
+    }
+  ],
+  "version": "1.1.1",
+  "frameworks": "arduino",
+  "platforms": "*"
+}
