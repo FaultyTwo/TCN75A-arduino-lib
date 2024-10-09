@@ -3,6 +3,8 @@
  * Date: 11/19/2021
  * FROM: https://github.com/FaultyTwo/TCN75A-arduino-lib
  * 
+ * MODIFIED: 10/09/2024
+ * 
  * Desc:
  * This is the basic usage of ALERT pin in Interrupt Mode.
  * In this example. If the temperature has exceeded 50.0 celsius,
@@ -15,16 +17,16 @@
 
 #define INTERRUPT_PIN 2
 
-TCN75A dvc(0X4F); //A2-A0 ARE ALL HIGH
+TCN75A dvc(0X4F);
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   dvc.begin();
-  delay(50); //wait for thing to be ready.. i guess
+  delay(50);
   dvc.setRangeTemp(45,50);
   dvc.setAlertMode(INT_MODE);
-  attachInterrupt(digitalPinToInterrupt(INTERRUPT_PIN),halt,FALLING); //ataching interrupt..
+  attachInterrupt(digitalPinToInterrupt(INTERRUPT_PIN), halt, FALLING); //attaching an interrupt pin
 }
 
 void loop() {
@@ -37,7 +39,5 @@ void halt(){
   dvc.setShutdown(true); //halt TCN75A conversion
   /* Add more devices to turn off here
    * Or save the results into a EEPROM
-   * You know what would this code does great? Fire Alarm.
-   * There. That's a project idea.
    */
 }

@@ -9,23 +9,20 @@ void TCN75A::begin(TwoWire &wire){
   _wire->begin();
 }
 
-// read temperature
 float TCN75A::readTemperature(){
   float data[1];
   _wire->beginTransmission(_adr);
   _wire->write(0x00);
   _wire->endTransmission(false);
-  _wire->requestFrom(_adr,uint8_t(2)); //need 2 btyes
+  _wire->requestFrom(_adr,uint8_t(2)); //need 2 bytes
   //force data to fit with int8_t then convert it to float
   data[0] = float(int8_t(_wire->read()));
-  //now with problem
-  data[1] = float((uint8_t(_wire->read() >> 4)) / 16.0); //IS THAT EASY ??? REALLY!?
+  data[1] = float((uint8_t(_wire->read() >> 4)) / 16.0);
   _wire->endTransmission();
   return data[0] + data[1];
 }
 
-// set temp
-// dont forget to fool-proof it too
+// set temps
 // min: -40; max: 125
 
 void TCN75A::setRangeTemp(float val_down, float val_up){
@@ -84,7 +81,8 @@ float TCN75A::getTemp(uint8_t p){
   return float(data[0]) + (data[1] == 0x01 ? 0.5 : 0.0);
 }
 
-// configuration.. *sigh*
+// configuration
+
 uint8_t TCN75A::readConfig(){
   uint8_t data;
   _wire->beginTransmission(_adr);

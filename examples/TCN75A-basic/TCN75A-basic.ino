@@ -3,6 +3,8 @@
  * Date: 11/16/2021
  * FROM: https://github.com/FaultyTwo/TCN75A-arduino-lib
  * 
+ * MODIFIED: 10/09/2024
+ * 
  * Desc:
  * This is the basic usage of this library.
  * Straight forward. Read temperature with 10-bit resolution.
@@ -13,13 +15,13 @@
 
 #include "TCN75A.h"
 
-TCN75A dvc(0X4F); //A2-A0 ARE ALL HIGH
+TCN75A dvc(0X4F);
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   dvc.begin();
-  delay(50); //wait for thing to be ready.. i guess
+  delay(50);
   Serial.println("Hello TCN75A!");
   dvc.setResolution(0x01); //setting resolution to 10-bit
 }

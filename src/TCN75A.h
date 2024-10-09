@@ -4,9 +4,6 @@
 #include "Arduino.h"
 #include "Wire.h"
 
-//im starting to regret making this library
-
-// LITERALS
 #define ONESHOT 0x05
 #define ADC_RESO 0x04
 #define F_QUEUE 0x03
@@ -14,46 +11,69 @@
 #define COMP_INT 0x01
 #define SHUTDOWN 0x00
 
-//POLARITY
 #define COMP_MODE false
 #define INT_MODE true
 
+/// @brief A TCN75A class
 class TCN75A{
   public:
+  /// @brief Specify a TCN75A device
+  /// @param adr The i2c address of TCN75A
   TCN75A(uint8_t adr);
+  /// @brief Initial a TCN75A device
+  /// @param wire A TwoWire object, leave blank for default
   void begin(TwoWire &wire = Wire);
   
+  /// @brief Read the temperature
+  /// @return The temperature value (in celsius)
   float readTemperature(); //read temperature as normal
-  
-  /* alert craps
-   * val = value, take in as decimal
-   * take in val, round down
-   * val - round down val; if < 0.5, use round down value
-   * if == 0.5, use that val + lsb, if > 0.5, use round up value
-   */
-  void setHystTemp(float val); //ditto, set limit-set temp
-  void setLimitTemp(float val); //ditto
+
+  /// @brief Set the hysteresis temperature
+  /// @param val The hysteresis value (in celsius)
+  /// @note Should be lower than limit-set temperature
+  void setHystTemp(float val);
+  /// @brief Set the limit-set temperature
+  /// @param val The limit-set value (in celsius)
+  /// @note Should be higher than hysteresis temperature
+  void setLimitTemp(float val);
+  /// @brief Set the range of hysteresis and limit-set
+  /// @param val_down The hysteresis value (in celsius)
+  /// @param val_up The limit-set value (in celsius)
+  /// @note The 'val_down' parameter should be lower than the 'val_up' parameter
   void setRangeTemp(float val_down, float val_up);
-  float getLimitTemp(); //get limit-set
-  float getHystTemp(); //get hysteresis loop
+  /// @brief Get the limit-set temperature
+  /// @return The limit-set value (in celsius)
+  float getLimitTemp();
+  /// @brief Get the hysteresis temperature
+  /// @return The hysteresis value (in celsius)
+  float getHystTemp();
   
   //config registers
-  void setOneShot(bool sw); // 1 = enabled, 0 = disabled (def)
-  void setResolution(uint8_t val); // need some constants 0.5 = def
-  void setFaultQueue(uint8_t val); // why -> 00 = def
-  void setAlertPolarity(bool sw); //1 = active-high, 0 = active-low
-  void setAlertMode(bool sw); // 1 = interrupt, 0 = comparator (def)
-  void setShutdown(bool sw); // 1 = enable, 0 = disable (def)
-  //remember. use bitWrite() to change a bit in the read byte
+
+  /// @brief Configure One-Shot Mode
+  /// @param sw (logic 0 = Disable [Default], logic 1 = Enable)
+  void setOneShot(bool sw);
+  /// @brief Configure ADC conversion resolution
+  /// @param val Configure value (Default: 9-Bit [0x00])
+  void setResolution(uint8_t val);
+  /// @brief Configure Fault Queue
+  /// @param val Configure value (Default: 1 [0x00])
+  /// @note https://github.com/FaultyTwo/TCN75A-arduino-lib
+  void setFaultQueue(uint8_t val);
+  /// @brief Configure Alert Polarity
+  /// @param sw (logic 0 = Active-Low [Default], logic 1 = Active-High)
+  void setAlertPolarity(bool sw);
+  /// @brief Configure Alert Mode
+  /// @param sw (logic 0 = Comparator [Default], logic 1 = Interrupt)
+  void setAlertMode(bool sw);
+  /// @brief Configure Shutdown Mode
+  /// @param sw (logic 0 = Disable [Default], logic 1 = Enable)
+  void setShutdown(bool sw);
+  /// @brief Check a config
+  /// @param op Operation code
+  /// @return The value of a config
+  /// @note https://github.com/FaultyTwo/TCN75A-arduino-lib
   int8_t checkConfig(uint8_t op);
-  /* OPTIONS:
-   * 0x00 = SHUTDOWN
-   * 0x01 = COMP/INT
-   * 0x02 = ALERT POLARITY
-   * 0x03 = FAULT QUEUE
-   * 0x04 = ADC RESOLUTION
-   * 0x05 = ONESHOT
-   */
   
   private:
   uint8_t readConfig();
